@@ -9,10 +9,27 @@ using namespace std;
 
 class Solution
 {
+  void selectionSort(vector<int> &arr, int n){
+        for(int i=0;i<n-1;i++){
+            int miniIndex=i;
+            for(int j=i+1;j<n;j++){
+                if(arr[miniIndex]>arr[j]){
+                    miniIndex=j;
+                }
+                
+            
+            }
+            int temp=arr[i];
+            arr[i]=arr[miniIndex];
+            arr[miniIndex]=temp;
+          
+        }
+         
+    }
 public:
     int largest(vector<int> &arr, int n)
     {
-        sort(arr.begin(),arr.end());
+        selectionSort(arr,n);
         for(int i=0;i<n;i++){
           return arr[n-1];
         }
