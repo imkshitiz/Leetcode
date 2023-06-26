@@ -9,13 +9,11 @@ class Solution{
 public:	
 	int search(int A[], int N){
 	    //code
-	    int temp=0;
+	    int XOR=0;
 	    for(int i=0;i<N;i++){
-	        if(A[i]!=A[i-1] && A[i]!=A[i+1]){
-	            temp+=A[i];
-	        }
+	        XOR=XOR^A[i];
 	    }
-	    return temp;
+	    return XOR;
 	    
 	}
 };
