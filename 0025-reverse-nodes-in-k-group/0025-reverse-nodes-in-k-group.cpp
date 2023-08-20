@@ -11,51 +11,32 @@
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-          if(k==1)
-            return head;
-
-        ListNode* cur = head;
-
-        //calculating size
-        int size=0;
-        while(cur!=NULL){
-            size++;
-            cur = cur->next;
+        if(head == NULL || k==1) return head;
+        
+        ListNode* dummy = new ListNode(0);
+        dummy->next=head;
+        ListNode*pre = dummy, *curr=dummy, *next=dummy;
+        int count = 0;
+        
+        while(curr->next!=NULL){
+            curr=curr->next;
+            count++;
         }
-       
-        // possible sets of size k
-        int maxset = size/k;
-
-        cur = head;
-        ListNode* headtemp = head;
-        ListNode* prev;
-        int c=1;
-        int sets=0;
-
-        while(cur!=NULL && maxset!=sets){
-
-            ListNode* temp = cur->next->next;
-            cur->next->next = headtemp;
-            headtemp = cur->next;
-            cur->next = temp;
+        
+        while(count>=k){
+            curr=pre->next;
+            next=curr->next;
             
-            c++;
-            if(c==k){
-                if(sets<1){
-                    head = headtemp;
-                    prev = cur;
-                }   
-                else{
-                    prev->next = headtemp;
-                    prev = cur;
-                }
-                c=1;
-                sets++; 
-                cur = cur->next;
-                headtemp = cur;
+            for(int i=1;i<k;i++){
+                curr->next=next->next;
+                next->next=pre->next;
+                pre->next=next;
+                next=curr->next;
             }
+            pre = curr;
+            count-=k;
         }
-        return head;
+        return dummy->next;
 
     }
 };
